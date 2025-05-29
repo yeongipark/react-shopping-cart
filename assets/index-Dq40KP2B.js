@@ -15376,7 +15376,7 @@ function OrderSummary() {
     /* @__PURE__ */ jsx$1(SubmitButton, { enabled: false, label: "결제하기" })
   ] });
 }
-const basename = "/react-shopping-cart";
+const basename = "/react-shopping-cart/";
 const router = createBrowserRouter(
   [
     {
