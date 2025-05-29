@@ -1,0 +1,39 @@
+:root {
+  --color-black: #000000;
+  --color-gray: #bebebe;
+
+  --font-size-small: 12px;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+
+  --font-weight-bold: 700;
+  --font-weight-normal: 500;
+  --font-weight-light: 400;
+
+  --max-width: 430px;
+  --min-height: 710px;
+}
+
+#root {
+  width: var(--max-width);
+  height: 100vh;
+  margin: 0 auto;
+}
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+button,
+div,
+header,
+section,
+footer,
+nav,
+article,
+input {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
