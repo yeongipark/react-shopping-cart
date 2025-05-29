@@ -14827,7 +14827,7 @@ const Button$3 = css`
   cursor: pointer;
 `;
 function CheckBox({ label, id: id2, isSelected, onClick }) {
-  const imageSource = isSelected ? "/public/enabledCheck.svg" : "/public/disabledCheck.svg";
+  const imageSource = isSelected ? "enabledCheck.svg" : "disabledCheck.svg";
   return /* @__PURE__ */ jsxs("div", { css: Container$7, children: [
     /* @__PURE__ */ jsx$1("button", { css: Button$3, id: id2, type: "button", onClick, children: /* @__PURE__ */ jsx$1("img", { src: imageSource, alt: "체크 박스" }) }),
     label && /* @__PURE__ */ jsx$1("label", { css: Label, htmlFor: id2, children: label })
@@ -14957,7 +14957,7 @@ function CartItem({
           css: ProductImage,
           src: product.imageUrl,
           onError: (error) => {
-            error.currentTarget.src = "/public/default-cartItem.png";
+            error.currentTarget.src = "default-cartItem.png";
           }
         }
       ),
@@ -15270,7 +15270,7 @@ function Cart() {
     fetchCartItem();
   }, [fetchCartItem]);
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx$1(Header, { icon: "/public/logo.svg", handleIconClick: () => navigate("/") }),
+    /* @__PURE__ */ jsx$1(Header, { icon: "logo.svg", handleIconClick: () => navigate("/") }),
     /* @__PURE__ */ jsxs("section", { css: Container$1, children: [
       /* @__PURE__ */ jsx$1(Description, { cartItemCount: cartItems.length }),
       cartItems.length === 0 ? /* @__PURE__ */ jsx$1("p", { css: NoCartItemText, children: "장바구니에 담은 상품이 없습니다." }) : /* @__PURE__ */ jsxs("div", { css: Wrap, children: [
@@ -15354,13 +15354,7 @@ function OrderSummary() {
   const orderCost = getOrderCost(cartItems);
   const totalCost = orderCost + getDeliveryCost(orderCost);
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx$1(
-      Header,
-      {
-        icon: "/public/backIcon.svg",
-        handleIconClick: () => navigate(-1)
-      }
-    ),
+    /* @__PURE__ */ jsx$1(Header, { icon: "backIcon.svg", handleIconClick: () => navigate(-1) }),
     /* @__PURE__ */ jsxs("section", { css: Container, children: [
       /* @__PURE__ */ jsx$1("h2", { css: Title, children: "주문 확인" }),
       /* @__PURE__ */ jsx$1("p", { css: Summary, children: `총 ${cartItems.length}종류의 상품 ${getAllQuantity(
