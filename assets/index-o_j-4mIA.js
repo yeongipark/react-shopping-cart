@@ -1047,8 +1047,8 @@ var prefixer = function prefixer2(element, index2, children, callback) {
 };
 var defaultStylisPlugins = [prefixer];
 var createCache = function createCache2(options) {
-  var key = options.key;
-  if (key === "css") {
+  var key2 = options.key;
+  if (key2 === "css") {
     var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
     Array.prototype.forEach.call(ssrStyles, function(node2) {
       var dataEmotionAttribute = node2.getAttribute("data-emotion");
@@ -1068,7 +1068,7 @@ var createCache = function createCache2(options) {
     Array.prototype.forEach.call(
       // this means we will ignore elements which don't have a space in them which
       // means that the style elements we're looking at are only Emotion 11 server-rendered style elements
-      document.querySelectorAll('style[data-emotion^="' + key + ' "]'),
+      document.querySelectorAll('style[data-emotion^="' + key2 + ' "]'),
       function(node2) {
         var attrib = node2.getAttribute("data-emotion").split(" ");
         for (var i = 1; i < attrib.length; i++) {
@@ -1098,9 +1098,9 @@ var createCache = function createCache2(options) {
     };
   }
   var cache = {
-    key,
+    key: key2,
     sheet: new StyleSheet({
-      key,
+      key: key2,
       container,
       nonce: options.nonce,
       speedy: options.speedy,
@@ -1374,8 +1374,8 @@ var isProcessableValue = function isProcessableValue2(value) {
 var processStyleName = /* @__PURE__ */ memoize(function(styleName) {
   return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, "-$&").toLowerCase();
 });
-var processStyleValue = function processStyleValue2(key, value) {
-  switch (key) {
+var processStyleValue = function processStyleValue2(key2, value) {
+  switch (key2) {
     case "animation":
     case "animationName": {
       if (typeof value === "string") {
@@ -1390,7 +1390,7 @@ var processStyleValue = function processStyleValue2(key, value) {
       }
     }
   }
-  if (unitlessKeys[key] !== 1 && !isCustomProperty(key) && typeof value === "number" && value !== 0) {
+  if (unitlessKeys[key2] !== 1 && !isCustomProperty(key2) && typeof value === "number" && value !== 0) {
     return value + "px";
   }
   return value;
@@ -1458,33 +1458,33 @@ function createStringFromObject(mergedProps, registered, obj) {
       string += handleInterpolation(mergedProps, registered, obj[i]) + ";";
     }
   } else {
-    for (var key in obj) {
-      var value = obj[key];
+    for (var key2 in obj) {
+      var value = obj[key2];
       if (typeof value !== "object") {
         var asString = value;
         if (isProcessableValue(asString)) {
-          string += processStyleName(key) + ":" + processStyleValue(key, asString) + ";";
+          string += processStyleName(key2) + ":" + processStyleValue(key2, asString) + ";";
         }
       } else {
-        if (key === "NO_COMPONENT_SELECTOR" && isDevelopment$1) {
+        if (key2 === "NO_COMPONENT_SELECTOR" && isDevelopment$1) {
           throw new Error(noComponentSelectorMessage);
         }
         if (Array.isArray(value) && typeof value[0] === "string" && registered == null) {
           for (var _i = 0; _i < value.length; _i++) {
             if (isProcessableValue(value[_i])) {
-              string += processStyleName(key) + ":" + processStyleValue(key, value[_i]) + ";";
+              string += processStyleName(key2) + ":" + processStyleValue(key2, value[_i]) + ";";
             }
           }
         } else {
           var interpolated = handleInterpolation(mergedProps, registered, value);
-          switch (key) {
+          switch (key2) {
             case "animation":
             case "animationName": {
-              string += processStyleName(key) + ":" + interpolated + ";";
+              string += processStyleName(key2) + ":" + interpolated + ";";
               break;
             }
             default: {
-              string += key + "{" + interpolated + "}";
+              string += key2 + "{" + interpolated + "}";
             }
           }
         }
@@ -1608,17 +1608,17 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
 });
 var Emotion$1 = Emotion;
 var Fragment = jsxRuntimeExports.Fragment;
-var jsx$1 = function jsx(type, props, key) {
+var jsx$1 = function jsx(type, props, key2) {
   if (!hasOwn.call(props, "css")) {
-    return jsxRuntimeExports.jsx(type, props, key);
+    return jsxRuntimeExports.jsx(type, props, key2);
   }
-  return jsxRuntimeExports.jsx(Emotion$1, createEmotionProps(type, props), key);
+  return jsxRuntimeExports.jsx(Emotion$1, createEmotionProps(type, props), key2);
 };
-var jsxs = function jsxs2(type, props, key) {
+var jsxs = function jsxs2(type, props, key2) {
   if (!hasOwn.call(props, "css")) {
-    return jsxRuntimeExports.jsxs(type, props, key);
+    return jsxRuntimeExports.jsxs(type, props, key2);
   }
-  return jsxRuntimeExports.jsxs(Emotion$1, createEmotionProps(type, props), key);
+  return jsxRuntimeExports.jsxs(Emotion$1, createEmotionProps(type, props), key2);
 };
 var client = {};
 var reactDom = { exports: {} };
@@ -8875,12 +8875,12 @@ function parse(str, options) {
     }
     const keyStartIdx = startIndex(str, index2, eqIdx);
     const keyEndIdx = endIndex(str, eqIdx, keyStartIdx);
-    const key = str.slice(keyStartIdx, keyEndIdx);
-    if (obj[key] === void 0) {
+    const key2 = str.slice(keyStartIdx, keyEndIdx);
+    if (obj[key2] === void 0) {
       let valStartIdx = startIndex(str, eqIdx + 1, endIdx);
       let valEndIdx = endIndex(str, endIdx, valStartIdx);
       const value = dec(str.slice(valStartIdx, valEndIdx));
-      obj[key] = value;
+      obj[key2] = value;
     }
     index2 = endIdx + 1;
   } while (index2 < len);
@@ -9057,7 +9057,7 @@ function getHistoryState(location, index2) {
     idx: index2
   };
 }
-function createLocation(current, to, state = null, key) {
+function createLocation(current, to, state = null, key2) {
   let location = {
     pathname: typeof current === "string" ? current : current.pathname,
     search: "",
@@ -9068,7 +9068,7 @@ function createLocation(current, to, state = null, key) {
     // full Locations now and avoid the need to run through this flow at all
     // But that's a pretty big refactor to the current test suite so going to
     // keep as is for the time being and just let any incoming keys take precedence
-    key: to && to.key || key || createKey()
+    key: to && to.key || key2 || createKey()
   };
   return location;
 }
@@ -9240,9 +9240,9 @@ var unsupportedLazyRouteObjectKeys = /* @__PURE__ */ new Set([
   "index",
   "children"
 ]);
-function isUnsupportedLazyRouteObjectKey(key) {
+function isUnsupportedLazyRouteObjectKey(key2) {
   return unsupportedLazyRouteObjectKeys.has(
-    key
+    key2
   );
 }
 var unsupportedLazyRouteFunctionKeys = /* @__PURE__ */ new Set([
@@ -9254,9 +9254,9 @@ var unsupportedLazyRouteFunctionKeys = /* @__PURE__ */ new Set([
   "unstable_middleware",
   "children"
 ]);
-function isUnsupportedLazyRouteFunctionKey(key) {
+function isUnsupportedLazyRouteFunctionKey(key2) {
   return unsupportedLazyRouteFunctionKeys.has(
-    key
+    key2
   );
 }
 function isIndexRoute(route) {
@@ -9921,8 +9921,8 @@ function createRouter(init) {
     }
     subscribers.clear();
     pendingNavigationController && pendingNavigationController.abort();
-    state.fetchers.forEach((_, key) => deleteFetcher(key));
-    state.blockers.forEach((_, key) => deleteBlocker(key));
+    state.fetchers.forEach((_, key2) => deleteFetcher(key2));
+    state.blockers.forEach((_, key2) => deleteBlocker(key2));
   }
   function subscribe(fn) {
     subscribers.add(fn);
@@ -9935,18 +9935,18 @@ function createRouter(init) {
     };
     let unmountedFetchers = [];
     let mountedFetchers = [];
-    state.fetchers.forEach((fetcher, key) => {
+    state.fetchers.forEach((fetcher, key2) => {
       if (fetcher.state === "idle") {
-        if (fetchersQueuedForDeletion.has(key)) {
-          unmountedFetchers.push(key);
+        if (fetchersQueuedForDeletion.has(key2)) {
+          unmountedFetchers.push(key2);
         } else {
-          mountedFetchers.push(key);
+          mountedFetchers.push(key2);
         }
       }
     });
-    fetchersQueuedForDeletion.forEach((key) => {
-      if (!state.fetchers.has(key) && !fetchControllers.has(key)) {
-        unmountedFetchers.push(key);
+    fetchersQueuedForDeletion.forEach((key2) => {
+      if (!state.fetchers.has(key2) && !fetchControllers.has(key2)) {
+        unmountedFetchers.push(key2);
       }
     });
     [...subscribers].forEach(
@@ -9956,8 +9956,8 @@ function createRouter(init) {
         flushSync: opts.flushSync === true
       })
     );
-    unmountedFetchers.forEach((key) => deleteFetcher(key));
-    mountedFetchers.forEach((key) => state.fetchers.delete(key));
+    unmountedFetchers.forEach((key2) => deleteFetcher(key2));
+    mountedFetchers.forEach((key2) => state.fetchers.delete(key2));
   }
   function completeNavigation(location, newState, { flushSync } = {}) {
     var _a, _b;
@@ -10591,8 +10591,8 @@ function createRouter(init) {
     });
     return new Map(state.fetchers);
   }
-  async function fetch2(key, routeId, href2, opts) {
-    abortFetcher(key);
+  async function fetch2(key2, routeId, href2, opts) {
+    abortFetcher(key2);
     let flushSync = (opts && opts.flushSync) === true;
     let routesToUse = inFlightDataRoutes || dataRoutes;
     let normalizedPath = normalizeTo(
@@ -10610,7 +10610,7 @@ function createRouter(init) {
     }
     if (!matches) {
       setFetcherError(
-        key,
+        key2,
         routeId,
         getInternalRouterError(404, { pathname: normalizedPath }),
         { flushSync }
@@ -10623,7 +10623,7 @@ function createRouter(init) {
       opts
     );
     if (error) {
-      setFetcherError(key, routeId, error, { flushSync });
+      setFetcherError(key2, routeId, error, { flushSync });
       return;
     }
     let match2 = getTargetMatch(matches, path);
@@ -10633,7 +10633,7 @@ function createRouter(init) {
     let preventScrollReset = (opts && opts.preventScrollReset) === true;
     if (submission && isMutationMethod(submission.formMethod)) {
       await handleFetcherAction(
-        key,
+        key2,
         routeId,
         path,
         match2,
@@ -10646,9 +10646,9 @@ function createRouter(init) {
       );
       return;
     }
-    fetchLoadMatches.set(key, { routeId, path });
+    fetchLoadMatches.set(key2, { routeId, path });
     await handleFetcherLoader(
-      key,
+      key2,
       routeId,
       path,
       match2,
@@ -10660,9 +10660,9 @@ function createRouter(init) {
       submission
     );
   }
-  async function handleFetcherAction(key, routeId, path, match2, requestMatches, scopedContext, isFogOfWar, flushSync, preventScrollReset, submission) {
+  async function handleFetcherAction(key2, routeId, path, match2, requestMatches, scopedContext, isFogOfWar, flushSync, preventScrollReset, submission) {
     interruptActiveLoads();
-    fetchLoadMatches.delete(key);
+    fetchLoadMatches.delete(key2);
     function detectAndHandle405Error(m2) {
       if (!m2.route.action && !m2.route.lazy) {
         let error = getInternalRouterError(405, {
@@ -10670,7 +10670,7 @@ function createRouter(init) {
           pathname: path,
           routeId
         });
-        setFetcherError(key, routeId, error, { flushSync });
+        setFetcherError(key2, routeId, error, { flushSync });
         return true;
       }
       return false;
@@ -10678,8 +10678,8 @@ function createRouter(init) {
     if (!isFogOfWar && detectAndHandle405Error(match2)) {
       return;
     }
-    let existingFetcher = state.fetchers.get(key);
-    updateFetcherState(key, getSubmittingFetcher(submission, existingFetcher), {
+    let existingFetcher = state.fetchers.get(key2);
+    updateFetcherState(key2, getSubmittingFetcher(submission, existingFetcher), {
       flushSync
     });
     let abortController = new AbortController();
@@ -10694,16 +10694,16 @@ function createRouter(init) {
         requestMatches,
         path,
         fetchRequest.signal,
-        key
+        key2
       );
       if (discoverResult.type === "aborted") {
         return;
       } else if (discoverResult.type === "error") {
-        setFetcherError(key, routeId, discoverResult.error, { flushSync });
+        setFetcherError(key2, routeId, discoverResult.error, { flushSync });
         return;
       } else if (!discoverResult.matches) {
         setFetcherError(
-          key,
+          key2,
           routeId,
           getInternalRouterError(404, { pathname: path }),
           { flushSync }
@@ -10717,7 +10717,7 @@ function createRouter(init) {
         }
       }
     }
-    fetchControllers.set(key, abortController);
+    fetchControllers.set(key2, abortController);
     let originatingLoadId = incrementingLoadId;
     let fetchMatches = getTargetedDataStrategyMatches(
       mapRouteProperties2,
@@ -10732,29 +10732,29 @@ function createRouter(init) {
       fetchRequest,
       fetchMatches,
       scopedContext,
-      key
+      key2
     );
     let actionResult = actionResults[match2.route.id];
     if (fetchRequest.signal.aborted) {
-      if (fetchControllers.get(key) === abortController) {
-        fetchControllers.delete(key);
+      if (fetchControllers.get(key2) === abortController) {
+        fetchControllers.delete(key2);
       }
       return;
     }
-    if (fetchersQueuedForDeletion.has(key)) {
+    if (fetchersQueuedForDeletion.has(key2)) {
       if (isRedirectResult(actionResult) || isErrorResult(actionResult)) {
-        updateFetcherState(key, getDoneFetcher(void 0));
+        updateFetcherState(key2, getDoneFetcher(void 0));
         return;
       }
     } else {
       if (isRedirectResult(actionResult)) {
-        fetchControllers.delete(key);
+        fetchControllers.delete(key2);
         if (pendingNavigationLoadId > originatingLoadId) {
-          updateFetcherState(key, getDoneFetcher(void 0));
+          updateFetcherState(key2, getDoneFetcher(void 0));
           return;
         } else {
-          fetchRedirectIds.add(key);
-          updateFetcherState(key, getLoadingFetcher(submission));
+          fetchRedirectIds.add(key2);
+          updateFetcherState(key2, getLoadingFetcher(submission));
           return startRedirectNavigation(fetchRequest, actionResult, false, {
             fetcherSubmission: submission,
             preventScrollReset
@@ -10762,7 +10762,7 @@ function createRouter(init) {
         }
       }
       if (isErrorResult(actionResult)) {
-        setFetcherError(key, routeId, actionResult.error);
+        setFetcherError(key2, routeId, actionResult.error);
         return;
       }
     }
@@ -10776,9 +10776,9 @@ function createRouter(init) {
     let matches = state.navigation.state !== "idle" ? matchRoutes(routesToUse, state.navigation.location, basename2) : state.matches;
     invariant(matches, "Didn't find any matches after fetcher action");
     let loadId = ++incrementingLoadId;
-    fetchReloadIds.set(key, loadId);
+    fetchReloadIds.set(key2, loadId);
     let loadFetcher = getLoadingFetcher(submission, actionResult.data);
-    state.fetchers.set(key, loadFetcher);
+    state.fetchers.set(key2, loadFetcher);
     let { dsMatches, revalidatingFetchers } = getMatchesToLoad(
       revalidationRequest,
       scopedContext,
@@ -10801,7 +10801,7 @@ function createRouter(init) {
       init.patchRoutesOnNavigation != null,
       [match2.route.id, actionResult]
     );
-    revalidatingFetchers.filter((rf2) => rf2.key !== key).forEach((rf2) => {
+    revalidatingFetchers.filter((rf2) => rf2.key !== key2).forEach((rf2) => {
       let staleKey = rf2.key;
       let existingFetcher2 = state.fetchers.get(staleKey);
       let revalidatingFetcher = getLoadingFetcher(
@@ -10833,12 +10833,12 @@ function createRouter(init) {
       "abort",
       abortPendingFetchRevalidations
     );
-    fetchReloadIds.delete(key);
-    fetchControllers.delete(key);
+    fetchReloadIds.delete(key2);
+    fetchControllers.delete(key2);
     revalidatingFetchers.forEach((r2) => fetchControllers.delete(r2.key));
-    if (state.fetchers.has(key)) {
+    if (state.fetchers.has(key2)) {
       let doneFetcher = getDoneFetcher(actionResult.data);
-      state.fetchers.set(key, doneFetcher);
+      state.fetchers.set(key2, doneFetcher);
     }
     let redirect2 = findRedirect(loaderResults);
     if (redirect2) {
@@ -10891,10 +10891,10 @@ function createRouter(init) {
       isRevalidationRequired = false;
     }
   }
-  async function handleFetcherLoader(key, routeId, path, match2, matches, scopedContext, isFogOfWar, flushSync, preventScrollReset, submission) {
-    let existingFetcher = state.fetchers.get(key);
+  async function handleFetcherLoader(key2, routeId, path, match2, matches, scopedContext, isFogOfWar, flushSync, preventScrollReset, submission) {
+    let existingFetcher = state.fetchers.get(key2);
     updateFetcherState(
-      key,
+      key2,
       getLoadingFetcher(
         submission,
         existingFetcher ? existingFetcher.data : void 0
@@ -10912,16 +10912,16 @@ function createRouter(init) {
         matches,
         path,
         fetchRequest.signal,
-        key
+        key2
       );
       if (discoverResult.type === "aborted") {
         return;
       } else if (discoverResult.type === "error") {
-        setFetcherError(key, routeId, discoverResult.error, { flushSync });
+        setFetcherError(key2, routeId, discoverResult.error, { flushSync });
         return;
       } else if (!discoverResult.matches) {
         setFetcherError(
-          key,
+          key2,
           routeId,
           getInternalRouterError(404, { pathname: path }),
           { flushSync }
@@ -10932,7 +10932,7 @@ function createRouter(init) {
         match2 = getTargetMatch(matches, path);
       }
     }
-    fetchControllers.set(key, abortController);
+    fetchControllers.set(key2, abortController);
     let originatingLoadId = incrementingLoadId;
     let dsMatches = getTargetedDataStrategyMatches(
       mapRouteProperties2,
@@ -10947,25 +10947,25 @@ function createRouter(init) {
       fetchRequest,
       dsMatches,
       scopedContext,
-      key
+      key2
     );
     let result = results[match2.route.id];
-    if (fetchControllers.get(key) === abortController) {
-      fetchControllers.delete(key);
+    if (fetchControllers.get(key2) === abortController) {
+      fetchControllers.delete(key2);
     }
     if (fetchRequest.signal.aborted) {
       return;
     }
-    if (fetchersQueuedForDeletion.has(key)) {
-      updateFetcherState(key, getDoneFetcher(void 0));
+    if (fetchersQueuedForDeletion.has(key2)) {
+      updateFetcherState(key2, getDoneFetcher(void 0));
       return;
     }
     if (isRedirectResult(result)) {
       if (pendingNavigationLoadId > originatingLoadId) {
-        updateFetcherState(key, getDoneFetcher(void 0));
+        updateFetcherState(key2, getDoneFetcher(void 0));
         return;
       } else {
-        fetchRedirectIds.add(key);
+        fetchRedirectIds.add(key2);
         await startRedirectNavigation(fetchRequest, result, false, {
           preventScrollReset
         });
@@ -10973,10 +10973,10 @@ function createRouter(init) {
       }
     }
     if (isErrorResult(result)) {
-      setFetcherError(key, routeId, result.error);
+      setFetcherError(key2, routeId, result.error);
       return;
     }
-    updateFetcherState(key, getDoneFetcher(result.data));
+    updateFetcherState(key2, getDoneFetcher(result.data));
   }
   async function startRedirectNavigation(request, redirect2, isNavigation, {
     submission,
@@ -11135,23 +11135,23 @@ function createRouter(init) {
   }
   function interruptActiveLoads() {
     isRevalidationRequired = true;
-    fetchLoadMatches.forEach((_, key) => {
-      if (fetchControllers.has(key)) {
-        cancelledFetcherLoads.add(key);
+    fetchLoadMatches.forEach((_, key2) => {
+      if (fetchControllers.has(key2)) {
+        cancelledFetcherLoads.add(key2);
       }
-      abortFetcher(key);
+      abortFetcher(key2);
     });
   }
-  function updateFetcherState(key, fetcher, opts = {}) {
-    state.fetchers.set(key, fetcher);
+  function updateFetcherState(key2, fetcher, opts = {}) {
+    state.fetchers.set(key2, fetcher);
     updateState(
       { fetchers: new Map(state.fetchers) },
       { flushSync: (opts && opts.flushSync) === true }
     );
   }
-  function setFetcherError(key, routeId, error, opts = {}) {
+  function setFetcherError(key2, routeId, error, opts = {}) {
     let boundaryMatch = findNearestBoundary(state.matches, routeId);
-    deleteFetcher(key);
+    deleteFetcher(key2);
     updateState(
       {
         errors: {
@@ -11162,58 +11162,58 @@ function createRouter(init) {
       { flushSync: (opts && opts.flushSync) === true }
     );
   }
-  function getFetcher(key) {
-    activeFetchers.set(key, (activeFetchers.get(key) || 0) + 1);
-    if (fetchersQueuedForDeletion.has(key)) {
-      fetchersQueuedForDeletion.delete(key);
+  function getFetcher(key2) {
+    activeFetchers.set(key2, (activeFetchers.get(key2) || 0) + 1);
+    if (fetchersQueuedForDeletion.has(key2)) {
+      fetchersQueuedForDeletion.delete(key2);
     }
-    return state.fetchers.get(key) || IDLE_FETCHER;
+    return state.fetchers.get(key2) || IDLE_FETCHER;
   }
-  function deleteFetcher(key) {
-    let fetcher = state.fetchers.get(key);
-    if (fetchControllers.has(key) && !(fetcher && fetcher.state === "loading" && fetchReloadIds.has(key))) {
-      abortFetcher(key);
+  function deleteFetcher(key2) {
+    let fetcher = state.fetchers.get(key2);
+    if (fetchControllers.has(key2) && !(fetcher && fetcher.state === "loading" && fetchReloadIds.has(key2))) {
+      abortFetcher(key2);
     }
-    fetchLoadMatches.delete(key);
-    fetchReloadIds.delete(key);
-    fetchRedirectIds.delete(key);
-    fetchersQueuedForDeletion.delete(key);
-    cancelledFetcherLoads.delete(key);
-    state.fetchers.delete(key);
+    fetchLoadMatches.delete(key2);
+    fetchReloadIds.delete(key2);
+    fetchRedirectIds.delete(key2);
+    fetchersQueuedForDeletion.delete(key2);
+    cancelledFetcherLoads.delete(key2);
+    state.fetchers.delete(key2);
   }
-  function queueFetcherForDeletion(key) {
-    let count = (activeFetchers.get(key) || 0) - 1;
+  function queueFetcherForDeletion(key2) {
+    let count = (activeFetchers.get(key2) || 0) - 1;
     if (count <= 0) {
-      activeFetchers.delete(key);
-      fetchersQueuedForDeletion.add(key);
+      activeFetchers.delete(key2);
+      fetchersQueuedForDeletion.add(key2);
     } else {
-      activeFetchers.set(key, count);
+      activeFetchers.set(key2, count);
     }
     updateState({ fetchers: new Map(state.fetchers) });
   }
-  function abortFetcher(key) {
-    let controller = fetchControllers.get(key);
+  function abortFetcher(key2) {
+    let controller = fetchControllers.get(key2);
     if (controller) {
       controller.abort();
-      fetchControllers.delete(key);
+      fetchControllers.delete(key2);
     }
   }
   function markFetchersDone(keys) {
-    for (let key of keys) {
-      let fetcher = getFetcher(key);
+    for (let key2 of keys) {
+      let fetcher = getFetcher(key2);
       let doneFetcher = getDoneFetcher(fetcher.data);
-      state.fetchers.set(key, doneFetcher);
+      state.fetchers.set(key2, doneFetcher);
     }
   }
   function markFetchRedirectsDone() {
     let doneKeys = [];
     let updatedFetchers = false;
-    for (let key of fetchRedirectIds) {
-      let fetcher = state.fetchers.get(key);
-      invariant(fetcher, `Expected fetcher: ${key}`);
+    for (let key2 of fetchRedirectIds) {
+      let fetcher = state.fetchers.get(key2);
+      invariant(fetcher, `Expected fetcher: ${key2}`);
       if (fetcher.state === "loading") {
-        fetchRedirectIds.delete(key);
-        doneKeys.push(key);
+        fetchRedirectIds.delete(key2);
+        doneKeys.push(key2);
         updatedFetchers = true;
       }
     }
@@ -11222,39 +11222,39 @@ function createRouter(init) {
   }
   function abortStaleFetchLoads(landedId) {
     let yeetedKeys = [];
-    for (let [key, id2] of fetchReloadIds) {
+    for (let [key2, id2] of fetchReloadIds) {
       if (id2 < landedId) {
-        let fetcher = state.fetchers.get(key);
-        invariant(fetcher, `Expected fetcher: ${key}`);
+        let fetcher = state.fetchers.get(key2);
+        invariant(fetcher, `Expected fetcher: ${key2}`);
         if (fetcher.state === "loading") {
-          abortFetcher(key);
-          fetchReloadIds.delete(key);
-          yeetedKeys.push(key);
+          abortFetcher(key2);
+          fetchReloadIds.delete(key2);
+          yeetedKeys.push(key2);
         }
       }
     }
     markFetchersDone(yeetedKeys);
     return yeetedKeys.length > 0;
   }
-  function getBlocker(key, fn) {
-    let blocker = state.blockers.get(key) || IDLE_BLOCKER;
-    if (blockerFunctions.get(key) !== fn) {
-      blockerFunctions.set(key, fn);
+  function getBlocker(key2, fn) {
+    let blocker = state.blockers.get(key2) || IDLE_BLOCKER;
+    if (blockerFunctions.get(key2) !== fn) {
+      blockerFunctions.set(key2, fn);
     }
     return blocker;
   }
-  function deleteBlocker(key) {
-    state.blockers.delete(key);
-    blockerFunctions.delete(key);
+  function deleteBlocker(key2) {
+    state.blockers.delete(key2);
+    blockerFunctions.delete(key2);
   }
-  function updateBlocker(key, newBlocker) {
-    let blocker = state.blockers.get(key) || IDLE_BLOCKER;
+  function updateBlocker(key2, newBlocker) {
+    let blocker = state.blockers.get(key2) || IDLE_BLOCKER;
     invariant(
       blocker.state === "unblocked" && newBlocker.state === "blocked" || blocker.state === "blocked" && newBlocker.state === "blocked" || blocker.state === "blocked" && newBlocker.state === "proceeding" || blocker.state === "blocked" && newBlocker.state === "unblocked" || blocker.state === "proceeding" && newBlocker.state === "unblocked",
       `Invalid blocker state transition: ${blocker.state} -> ${newBlocker.state}`
     );
     let blockers = new Map(state.blockers);
-    blockers.set(key, newBlocker);
+    blockers.set(key2, newBlocker);
     updateState({ blockers });
   }
   function shouldBlockNavigation({
@@ -11303,24 +11303,24 @@ function createRouter(init) {
   }
   function getScrollKey(location, matches) {
     if (getScrollRestorationKey2) {
-      let key = getScrollRestorationKey2(
+      let key2 = getScrollRestorationKey2(
         location,
         matches.map((m2) => convertRouteMatchToUiMatch(m2, state.loaderData))
       );
-      return key || location.key;
+      return key2 || location.key;
     }
     return location.key;
   }
   function saveScrollPosition(location, matches) {
     if (savedScrollPositions2 && getScrollPosition) {
-      let key = getScrollKey(location, matches);
-      savedScrollPositions2[key] = getScrollPosition();
+      let key2 = getScrollKey(location, matches);
+      savedScrollPositions2[key2] = getScrollPosition();
     }
   }
   function getSavedScrollPosition(location, matches) {
     if (savedScrollPositions2) {
-      let key = getScrollKey(location, matches);
-      let y2 = savedScrollPositions2[key];
+      let key2 = getScrollKey(location, matches);
+      let y2 = savedScrollPositions2[key2];
       if (typeof y2 === "number") {
         return y2;
       }
@@ -11698,11 +11698,11 @@ function getMatchesToLoad(request, scopedContext, mapRouteProperties2, manifest,
     );
   });
   let revalidatingFetchers = [];
-  fetchLoadMatches.forEach((f2, key) => {
-    if (initialHydration || !matches.some((m2) => m2.route.id === f2.routeId) || fetchersQueuedForDeletion.has(key)) {
+  fetchLoadMatches.forEach((f2, key2) => {
+    if (initialHydration || !matches.some((m2) => m2.route.id === f2.routeId) || fetchersQueuedForDeletion.has(key2)) {
       return;
     }
-    let fetcher = state.fetchers.get(key);
+    let fetcher = state.fetchers.get(key2);
     let isMidInitialLoad = fetcher && fetcher.state !== "idle" && fetcher.data === void 0;
     let fetcherMatches = matchRoutes(routesToUse, f2.path, basename2);
     if (!fetcherMatches) {
@@ -11710,7 +11710,7 @@ function getMatchesToLoad(request, scopedContext, mapRouteProperties2, manifest,
         return;
       }
       revalidatingFetchers.push({
-        key,
+        key: key2,
         routeId: f2.routeId,
         path: f2.path,
         matches: null,
@@ -11720,7 +11720,7 @@ function getMatchesToLoad(request, scopedContext, mapRouteProperties2, manifest,
       });
       return;
     }
-    if (fetchRedirectIds.has(key)) {
+    if (fetchRedirectIds.has(key2)) {
       return;
     }
     let fetcherMatch = getTargetMatch(fetcherMatches, f2.path);
@@ -11731,8 +11731,8 @@ function getMatchesToLoad(request, scopedContext, mapRouteProperties2, manifest,
       fetchController.signal
     );
     let fetcherDsMatches = null;
-    if (cancelledFetcherLoads.has(key)) {
-      cancelledFetcherLoads.delete(key);
+    if (cancelledFetcherLoads.has(key2)) {
+      cancelledFetcherLoads.delete(key2);
       fetcherDsMatches = getTargetedDataStrategyMatches(
         mapRouteProperties2,
         manifest,
@@ -11774,7 +11774,7 @@ function getMatchesToLoad(request, scopedContext, mapRouteProperties2, manifest,
     }
     if (fetcherDsMatches) {
       revalidatingFetchers.push({
-        key,
+        key: key2,
         routeId: f2.routeId,
         path: f2.path,
         matches: fetcherDsMatches,
@@ -11877,7 +11877,7 @@ function isSameRoute(newRoute, existingRoute) {
 }
 var lazyRoutePropertyCache = /* @__PURE__ */ new WeakMap();
 var loadLazyRouteProperty = ({
-  key,
+  key: key2,
   route,
   manifest,
   mapRouteProperties: mapRouteProperties2
@@ -11887,7 +11887,7 @@ var loadLazyRouteProperty = ({
   if (!routeToUpdate.lazy || typeof routeToUpdate.lazy !== "object") {
     return;
   }
-  let lazyFn = routeToUpdate.lazy[key];
+  let lazyFn = routeToUpdate.lazy[key2];
   if (!lazyFn) {
     return;
   }
@@ -11896,40 +11896,40 @@ var loadLazyRouteProperty = ({
     cache = {};
     lazyRoutePropertyCache.set(routeToUpdate, cache);
   }
-  let cachedPromise = cache[key];
+  let cachedPromise = cache[key2];
   if (cachedPromise) {
     return cachedPromise;
   }
   let propertyPromise = (async () => {
-    let isUnsupported = isUnsupportedLazyRouteObjectKey(key);
-    let staticRouteValue = routeToUpdate[key];
-    let isStaticallyDefined = staticRouteValue !== void 0 && key !== "hasErrorBoundary";
+    let isUnsupported = isUnsupportedLazyRouteObjectKey(key2);
+    let staticRouteValue = routeToUpdate[key2];
+    let isStaticallyDefined = staticRouteValue !== void 0 && key2 !== "hasErrorBoundary";
     if (isUnsupported) {
       warning(
         !isUnsupported,
-        "Route property " + key + " is not a supported lazy route property. This property will be ignored."
+        "Route property " + key2 + " is not a supported lazy route property. This property will be ignored."
       );
-      cache[key] = Promise.resolve();
+      cache[key2] = Promise.resolve();
     } else if (isStaticallyDefined) {
       warning(
         false,
-        `Route "${routeToUpdate.id}" has a static property "${key}" defined. The lazy property will be ignored.`
+        `Route "${routeToUpdate.id}" has a static property "${key2}" defined. The lazy property will be ignored.`
       );
     } else {
       let value = await lazyFn();
       if (value != null) {
-        Object.assign(routeToUpdate, { [key]: value });
+        Object.assign(routeToUpdate, { [key2]: value });
         Object.assign(routeToUpdate, mapRouteProperties2(routeToUpdate));
       }
     }
     if (typeof routeToUpdate.lazy === "object") {
-      routeToUpdate.lazy[key] = void 0;
+      routeToUpdate.lazy[key2] = void 0;
       if (Object.values(routeToUpdate.lazy).every((value) => value === void 0)) {
         routeToUpdate.lazy = void 0;
       }
     }
   })();
-  cache[key] = propertyPromise;
+  cache[key2] = propertyPromise;
   return propertyPromise;
 };
 var lazyRouteFunctionCache = /* @__PURE__ */ new WeakMap();
@@ -12001,19 +12001,19 @@ function loadLazyRoute(route, type, manifest, mapRouteProperties2, lazyRouteProp
   let lazyKeys = Object.keys(route.lazy);
   let lazyPropertyPromises = [];
   let lazyHandlerPromise = void 0;
-  for (let key of lazyKeys) {
-    if (lazyRoutePropertiesToSkip && lazyRoutePropertiesToSkip.includes(key)) {
+  for (let key2 of lazyKeys) {
+    if (lazyRoutePropertiesToSkip && lazyRoutePropertiesToSkip.includes(key2)) {
       continue;
     }
     let promise = loadLazyRouteProperty({
-      key,
+      key: key2,
       route,
       manifest,
       mapRouteProperties: mapRouteProperties2
     });
     if (promise) {
       lazyPropertyPromises.push(promise);
-      if (key === type) {
+      if (key2 === type) {
         lazyHandlerPromise = promise;
       }
     }
@@ -12505,15 +12505,15 @@ function createClientSideRequest(history, location, signal, submission) {
 }
 function convertFormDataToSearchParams(formData) {
   let searchParams = new URLSearchParams();
-  for (let [key, value] of formData.entries()) {
-    searchParams.append(key, typeof value === "string" ? value : value.name);
+  for (let [key2, value] of formData.entries()) {
+    searchParams.append(key2, typeof value === "string" ? value : value.name);
   }
   return searchParams;
 }
 function convertSearchParamsToFormData(searchParams) {
   let formData = new FormData();
-  for (let [key, value] of searchParams.entries()) {
-    formData.append(key, value);
+  for (let [key2, value] of searchParams.entries()) {
+    formData.append(key2, value);
   }
   return formData;
 }
@@ -12589,8 +12589,8 @@ function processLoaderData(state, matches, results, pendingActionResult, revalid
     pendingActionResult
   );
   revalidatingFetchers.filter((f2) => !f2.matches || f2.matches.some((m2) => m2.shouldLoad)).forEach((rf2) => {
-    let { key, match: match2, controller } = rf2;
-    let result = fetcherResults[key];
+    let { key: key2, match: match2, controller } = rf2;
+    let result = fetcherResults[key2];
     invariant(result, "Did not find corresponding fetcher result");
     if (controller && controller.signal.aborted) {
       return;
@@ -12602,12 +12602,12 @@ function processLoaderData(state, matches, results, pendingActionResult, revalid
           [boundaryMatch.route.id]: result.error
         };
       }
-      state.fetchers.delete(key);
+      state.fetchers.delete(key2);
     } else if (isRedirectResult(result)) {
       invariant(false, "Unhandled fetcher revalidation redirect");
     } else {
       let doneFetcher = getDoneFetcher(result.data);
-      state.fetchers.set(key, doneFetcher);
+      state.fetchers.set(key2, doneFetcher);
     }
   });
   return { loaderData, errors };
@@ -12701,9 +12701,9 @@ function getInternalRouterError(status, {
 function findRedirect(results) {
   let entries = Object.entries(results);
   for (let i = entries.length - 1; i >= 0; i--) {
-    let [key, result] = entries[i];
+    let [key2, result] = entries[i];
     if (isRedirectResult(result)) {
-      return { key, result };
+      return { key: key2, result };
     }
   }
 }
@@ -13416,9 +13416,9 @@ function useNavigateStable() {
   return navigate;
 }
 var alreadyWarned = {};
-function warningOnce(key, cond, message) {
-  if (!cond && !alreadyWarned[key]) {
-    alreadyWarned[key] = true;
+function warningOnce(key2, cond, message) {
+  if (!cond && !alreadyWarned[key2]) {
+    alreadyWarned[key2] = true;
     warning(false, message);
   }
 }
@@ -13517,12 +13517,12 @@ function RouterProvider({
   let fetcherData = reactExports.useRef(/* @__PURE__ */ new Map());
   let setState = reactExports.useCallback(
     (newState, { deletedFetchers, flushSync, viewTransitionOpts }) => {
-      newState.fetchers.forEach((fetcher, key) => {
+      newState.fetchers.forEach((fetcher, key2) => {
         if (fetcher.data !== void 0) {
-          fetcherData.current.set(key, fetcher.data);
+          fetcherData.current.set(key2, fetcher.data);
         }
       });
-      deletedFetchers.forEach((key) => fetcherData.current.delete(key));
+      deletedFetchers.forEach((key2) => fetcherData.current.delete(key2));
       warnOnce(
         flushSync === false || reactDomFlushSyncImpl != null,
         'You provided the `flushSync` option to a router update, but you are not using the `<RouterProvider>` from `react-router/dom` so `ReactDOM.flushSync()` is unavailable.  Please update your app to `import { RouterProvider } from "react-router/dom"` and ensure you have `react-dom` installed as a dependency to use the `flushSync` option.'
@@ -13712,7 +13712,7 @@ function Router({
     search = "",
     hash: hash2 = "",
     state = null,
-    key = "default"
+    key: key2 = "default"
   } = locationProp;
   let locationContext = reactExports.useMemo(() => {
     let trailingPathname = stripBasename(pathname, basename2);
@@ -13725,11 +13725,11 @@ function Router({
         search,
         hash: hash2,
         state,
-        key
+        key: key2
       },
       navigationType
     };
-  }, [basename2, pathname, search, hash2, state, key, navigationType]);
+  }, [basename2, pathname, search, hash2, state, key2, navigationType]);
   warning(
     locationContext != null,
     `<Router basename="${basename2}"> is not able to match the URL "${pathname}${search}${hash2}" because it does not start with the basename, so the <Router> won't render anything.`
@@ -13978,8 +13978,8 @@ function dedupeHrefs(hrefs) {
 function sortKeys(obj) {
   let sorted = {};
   let keys = Object.keys(obj).sort();
-  for (let key of keys) {
-    sorted[key] = obj[key];
+  for (let key2 of keys) {
+    sorted[key2] = obj[key2];
   }
   return sorted;
 }
@@ -13987,10 +13987,10 @@ function dedupeLinkDescriptors(descriptors, preloads) {
   let set = /* @__PURE__ */ new Set();
   new Set(preloads);
   return descriptors.reduce((deduped, descriptor) => {
-    let key = JSON.stringify(sortKeys(descriptor));
-    if (!set.has(key)) {
-      set.add(key);
-      deduped.push({ key, link: descriptor });
+    let key2 = JSON.stringify(sortKeys(descriptor));
+    if (!set.has(key2)) {
+      set.add(key2);
+      deduped.push({ key: key2, link: descriptor });
     }
     return deduped;
   }, []);
@@ -14215,10 +14215,10 @@ function PrefetchPageLinksImpl({
     [newMatchesForAssets, manifest]
   );
   let keyedPrefetchLinks = useKeyedPrefetchLinks(newMatchesForAssets);
-  return /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, dataHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "prefetch", as: "fetch", href: href2, ...linkProps })), moduleHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "modulepreload", href: href2, ...linkProps })), keyedPrefetchLinks.map(({ key, link }) => (
+  return /* @__PURE__ */ reactExports.createElement(reactExports.Fragment, null, dataHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "prefetch", as: "fetch", href: href2, ...linkProps })), moduleHrefs.map((href2) => /* @__PURE__ */ reactExports.createElement("link", { key: href2, rel: "modulepreload", href: href2, ...linkProps })), keyedPrefetchLinks.map(({ key: key2, link }) => (
     // these don't spread `linkProps` because they are full link descriptors
     // already with their own props
-    /* @__PURE__ */ reactExports.createElement("link", { key, ...link })
+    /* @__PURE__ */ reactExports.createElement("link", { key: key2, ...link })
   )));
 }
 function mergeRefs(...refs) {
@@ -14269,9 +14269,9 @@ function deserializeErrors(errors) {
     return null;
   let entries = Object.entries(errors);
   let serialized = {};
-  for (let [key, val] of entries) {
+  for (let [key2, val] of entries) {
     if (val && val.__type === "RouteErrorResponse") {
-      serialized[key] = new ErrorResponseImpl(
+      serialized[key2] = new ErrorResponseImpl(
         val.status,
         val.statusText,
         val.data,
@@ -14284,18 +14284,18 @@ function deserializeErrors(errors) {
           try {
             let error = new ErrorConstructor(val.message);
             error.stack = "";
-            serialized[key] = error;
+            serialized[key2] = error;
           } catch (e2) {
           }
         }
       }
-      if (serialized[key] == null) {
+      if (serialized[key2] == null) {
         let error = new Error(val.message);
         error.stack = "";
-        serialized[key] = error;
+        serialized[key2] = error;
       }
     } else {
-      serialized[key] = val;
+      serialized[key2] = val;
     }
   }
   return serialized;
@@ -14561,8 +14561,8 @@ function useSubmit() {
         basename2
       );
       if (options.navigate === false) {
-        let key = options.fetcherKey || getUniqueFetcherId();
-        await router2.fetch(key, currentRouteId, options.action || action, {
+        let key2 = options.fetcherKey || getUniqueFetcherId();
+        await router2.fetch(key2, currentRouteId, options.action || action, {
           preventScrollReset: options.preventScrollReset,
           formData,
           body,
@@ -14650,9 +14650,6 @@ function useViewTransitionState(to, opts = {}) {
 function RouterProvider2(props) {
   return /* @__PURE__ */ reactExports.createElement(RouterProvider, { flushSync: reactDomExports.flushSync, ...props });
 }
-function App() {
-  return /* @__PURE__ */ jsx$1(Fragment, { children: /* @__PURE__ */ jsx$1(Outlet, {}) });
-}
 const useMutation = () => {
   const [isLoading, setIsLoading] = reactExports.useState(false);
   const mutateData = reactExports.useCallback(
@@ -14688,7 +14685,7 @@ const isEmptyResponse = (response) => {
 const isSuccess = (response) => {
   return response.ok;
 };
-const isFetchError = (response) => {
+const isErrorWithStatus = (response) => {
   return response.status in FETCH_ERROR_MESSAGE;
 };
 const apiClient = async ({
@@ -14714,7 +14711,7 @@ const apiClient = async ({
   if (isSuccess(response)) {
     return response.json();
   }
-  if (isFetchError(response)) {
+  if (isErrorWithStatus(response)) {
     const errorBody = await response.json();
     const message = errorBody.message ?? FETCH_ERROR_MESSAGE[String(response.status)];
     throw new Error(message);
@@ -14754,7 +14751,7 @@ const useQuantityControl = ({
   const increaseQuantity = async (cartId) => {
     setQuantity((prev2) => prev2 + 1);
     await mutateData({
-      apiCall: () => increaseCartItem(cartId, quantity),
+      apiCall: () => increaseCartItem(cartId, quantity + 1),
       onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev2) => prev2 - 1);
@@ -14764,7 +14761,7 @@ const useQuantityControl = ({
   const decreaseQuantity = async (cartId) => {
     setQuantity((prev2) => prev2 > 1 ? prev2 - 1 : prev2);
     await mutateData({
-      apiCall: () => decreaseCartItem(cartId, quantity),
+      apiCall: () => decreaseCartItem(cartId, quantity - 1),
       onSuccess: refetchCartItem,
       onError: () => {
         setQuantity((prev2) => prev2 + 1);
@@ -14788,6 +14785,12 @@ const useQuantityControl = ({
     quantity
   };
 };
+const CartLogo = "logo.svg";
+const BackIcon = "backIcon.svg";
+const DefaultCartImg = "default-cartItem.png";
+const DisabledCheck = "disabledCheck.svg";
+const EnabledCheck = "enabledCheck.svg";
+const Info = "info.svg";
 var jsx2 = function jsx3(type, props) {
   var args = arguments;
   if (props == null || !hasOwn.call(props, "css")) {
@@ -14818,19 +14821,40 @@ const Container$7 = css`
   align-items: center;
   gap: 8px;
 `;
-const Label = css`
+const SmallText = css`
   font-size: var(--font-size-small);
 `;
-const Button$3 = css`
+const Button$4 = css`
   background: none;
   border: none;
   cursor: pointer;
 `;
-function CheckBox({ label, id: id2, isSelected, onClick }) {
-  const imageSource = isSelected ? "enabledCheck.svg" : "disabledCheck.svg";
+const BigText = css`
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-bold);
+`;
+function CheckBox({
+  disabled = false,
+  label,
+  id: id2,
+  isSelected,
+  onClick,
+  textSize = "small"
+}) {
+  const imageSource = isSelected ? EnabledCheck : DisabledCheck;
   return /* @__PURE__ */ jsxs("div", { css: Container$7, children: [
-    /* @__PURE__ */ jsx$1("button", { css: Button$3, id: id2, type: "button", onClick, children: /* @__PURE__ */ jsx$1("img", { src: imageSource, alt: "체크 박스" }) }),
-    label && /* @__PURE__ */ jsx$1("label", { css: Label, htmlFor: id2, children: label })
+    /* @__PURE__ */ jsx$1(
+      "button",
+      {
+        css: Button$4,
+        id: id2,
+        type: "button",
+        onClick,
+        disabled,
+        children: /* @__PURE__ */ jsx$1("img", { src: imageSource, alt: "체크 박스" })
+      }
+    ),
+    label && /* @__PURE__ */ jsx$1("label", { css: textSize === "big" ? BigText : SmallText, htmlFor: id2, children: label })
   ] });
 }
 const Container$6 = css`
@@ -14839,7 +14863,7 @@ const Container$6 = css`
   align-items: center;
   gap: 10px;
 `;
-const Button$2 = css`
+const Button$3 = css`
   width: 24px;
   height: 24px;
   border-radius: 8px;
@@ -14857,12 +14881,12 @@ function QuantityControlButton({
   increaseQuantity
 }) {
   return /* @__PURE__ */ jsxs("div", { css: Container$6, children: [
-    /* @__PURE__ */ jsx$1("button", { css: Button$2, onClick: decreaseQuantity, children: "-" }),
+    /* @__PURE__ */ jsx$1("button", { css: Button$3, onClick: decreaseQuantity, children: "-" }),
     /* @__PURE__ */ jsx$1("p", { css: Text, children: quantity }),
-    /* @__PURE__ */ jsx$1("button", { css: Button$2, onClick: increaseQuantity, children: "+" })
+    /* @__PURE__ */ jsx$1("button", { css: Button$3, onClick: increaseQuantity, children: "+" })
   ] });
 }
-const ItemContainer = css`
+const ItemContainer$1 = css`
   width: 100%;
   height: 160px;
 
@@ -14883,11 +14907,6 @@ const ItemInfo = css`
   display: flex;
   gap: 24px;
 `;
-const ItemDetail = css`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
 const ItemContent = css`
   display: flex;
   flex-direction: column;
@@ -14898,20 +14917,6 @@ const CountContainer = css`
   display: flex;
   gap: 4.5px;
   align-items: center;
-`;
-const ProductImage = css`
-  width: 112px;
-  height: 112px;
-  border-radius: 8px;
-  object-fit: fill;
-`;
-const ItemTitle = css`
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-normal);
-`;
-const ItemPrice = css`
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-bold);
 `;
 css`
   width: 24px;
@@ -14927,6 +14932,47 @@ const DeleteButton = css`
   border-radius: 4px;
   background-color: white;
 `;
+const ProductImage = css`
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
+  object-fit: fill;
+`;
+function CartItemImage({ image }) {
+  return /* @__PURE__ */ jsx$1(
+    "img",
+    {
+      css: ProductImage,
+      src: image,
+      alt: "상품 이미지",
+      onError: (error) => {
+        error.currentTarget.src = DefaultCartImg;
+      }
+    }
+  );
+}
+const ItemDetail = css`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+const ItemTitle = css`
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+`;
+const ItemPrice = css`
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+`;
+function CartItemInfo({ name, price }) {
+  return /* @__PURE__ */ jsxs("div", { css: ItemDetail, children: [
+    /* @__PURE__ */ jsx$1("h3", { css: ItemTitle, children: name }),
+    /* @__PURE__ */ jsxs("p", { css: ItemPrice, children: [
+      price.toLocaleString(),
+      "원"
+    ] })
+  ] });
+}
 function CartItem({
   cartItem,
   fetchCartItem,
@@ -14938,7 +14984,7 @@ function CartItem({
     initialQuantity,
     refetchCartItem: fetchCartItem
   });
-  return /* @__PURE__ */ jsx$1(Fragment, { children: /* @__PURE__ */ jsxs("div", { css: ItemContainer, children: [
+  return /* @__PURE__ */ jsx$1(Fragment, { children: /* @__PURE__ */ jsxs("div", { css: ItemContainer$1, children: [
     /* @__PURE__ */ jsxs("div", { css: ItemController, children: [
       /* @__PURE__ */ jsx$1(
         CheckBox,
@@ -14951,24 +14997,9 @@ function CartItem({
       /* @__PURE__ */ jsx$1("button", { css: DeleteButton, onClick: () => deleteCartItem(cartId), children: "삭제" })
     ] }),
     /* @__PURE__ */ jsxs("div", { css: ItemInfo, children: [
-      /* @__PURE__ */ jsx$1(
-        "img",
-        {
-          css: ProductImage,
-          src: product.imageUrl,
-          onError: (error) => {
-            error.currentTarget.src = "default-cartItem.png";
-          }
-        }
-      ),
+      /* @__PURE__ */ jsx$1(CartItemImage, { image: product.imageUrl }),
       /* @__PURE__ */ jsxs("div", { css: ItemContent, children: [
-        /* @__PURE__ */ jsxs("div", { css: ItemDetail, children: [
-          /* @__PURE__ */ jsx$1("h3", { css: ItemTitle, children: product.name }),
-          /* @__PURE__ */ jsxs("p", { css: ItemPrice, children: [
-            product.price.toLocaleString(),
-            "원"
-          ] })
-        ] }),
+        /* @__PURE__ */ jsx$1(CartItemInfo, { name: product.name, price: product.price }),
         /* @__PURE__ */ jsx$1("div", { css: CountContainer, children: /* @__PURE__ */ jsx$1(
           QuantityControlButton,
           {
@@ -14982,7 +15013,7 @@ function CartItem({
   ] }) });
 }
 const Container$5 = css`
-  height: 65%;
+  max-height: 400px;
   overflow-y: auto;
 `;
 function CartItemList({
@@ -15005,30 +15036,109 @@ function CartItemList({
   }) });
 }
 const Container$4 = css`
-  height: 13%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 36px 24px;
 `;
-const Title$1 = css`
-  margin-bottom: 15px;
-
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-bold);
-`;
-const Subtitle = css`
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-normal);
-`;
-function Description({ cartItemCount }) {
-  return /* @__PURE__ */ jsxs("section", { css: Container$4, children: [
-    /* @__PURE__ */ jsx$1("p", { css: Title$1, children: "장바구니" }),
-    cartItemCount !== 0 && /* @__PURE__ */ jsx$1(
-      "p",
-      {
-        css: Subtitle,
-        children: `현재 ${cartItemCount}종류의 상품이 담겨있습니다.`
+const useFetch = () => {
+  const [isLoading, setIsLoading] = reactExports.useState(false);
+  const fetchData = reactExports.useCallback(
+    async ({ apiCall, onSuccess, onError }) => {
+      try {
+        setIsLoading(true);
+        onSuccess(await apiCall());
+      } catch (error) {
+        onError(error);
+      } finally {
+        setIsLoading(false);
       }
-    )
-  ] });
+    },
+    []
+  );
+  return {
+    fetchData,
+    isLoading
+  };
+};
+function setLocalStorageItem(key2, value) {
+  localStorage.setItem(key2, JSON.stringify(value));
 }
+function getLocalStorageItem(key2) {
+  const item = localStorage.getItem(key2);
+  return item ? JSON.parse(item) : null;
+}
+const key = "selectedCartItem";
+function setSelectedCartItemToLocalStorage(item) {
+  setLocalStorageItem(key, item);
+}
+function getSelectedCartItemFromLocalStorage() {
+  return getLocalStorageItem(key);
+}
+const useCheckboxHandler = (cartItems) => {
+  const allCartIds = reactExports.useMemo(
+    () => [...cartItems].map((item) => item.id),
+    [cartItems]
+  );
+  const [selectedCartIds, setSelectedCartIds] = reactExports.useState([]);
+  reactExports.useEffect(() => {
+    const storedSelectedCartIds = getSelectedCartItemFromLocalStorage();
+    setSelectedCartIds(storedSelectedCartIds || []);
+  }, []);
+  const toggleAllSelect = () => {
+    setSelectedCartIds((prevCartIds) => {
+      const result = prevCartIds.length === allCartIds.length ? [] : allCartIds;
+      setSelectedCartItemToLocalStorage(result);
+      return result;
+    });
+  };
+  const toggleSelect = (cartId) => {
+    setSelectedCartIds((prevSelected) => {
+      const result = prevSelected.includes(cartId) ? prevSelected.filter((id2) => id2 !== cartId) : [...prevSelected, cartId];
+      setSelectedCartItemToLocalStorage(result);
+      return result;
+    });
+  };
+  const isAllSelected = () => {
+    return selectedCartIds.length === cartItems.length;
+  };
+  const isSelected = (cartId) => {
+    return selectedCartIds.includes(cartId);
+  };
+  return {
+    toggleAllSelect,
+    toggleSelect,
+    isAllSelected,
+    isSelected,
+    selectedCartIds
+  };
+};
+const Wrap = css`
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const NoCartItemText = css`
+  height: 100%;
+  min-height: var(--min-height);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-gray);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-light);
+`;
+const getOrderCost = (selectedCartItems) => {
+  return selectedCartItems.reduce((acc, cur) => {
+    return acc + cur.quantity * cur.product.price;
+  }, 0);
+};
+const getDeliveryCost = (orderCost) => {
+  return orderCost >= 1e5 || orderCost === 0 ? 0 : 3e3;
+};
 const Container$3 = css`
   position: sticky;
   top: 0;
@@ -15040,25 +15150,35 @@ const Container$3 = css`
   justify-content: flex-start;
   background-color: var(--color-black);
 `;
-const Button$1 = css`
+const Button$2 = css`
   background: none;
   border: none;
   cursor: pointer;
 `;
 function Header({ icon, handleIconClick }) {
-  return /* @__PURE__ */ jsx$1("header", { css: Container$3, children: /* @__PURE__ */ jsx$1("button", { css: Button$1, onClick: handleIconClick, children: /* @__PURE__ */ jsx$1("img", { src: icon, alt: "헤더 아이콘" }) }) });
+  return /* @__PURE__ */ jsx$1("header", { css: Container$3, children: icon && /* @__PURE__ */ jsx$1("button", { css: Button$2, onClick: handleIconClick, children: /* @__PURE__ */ jsx$1("img", { src: icon, alt: "헤더 아이콘" }) }) });
 }
-const getOrderCost = (selectedCartItems) => {
-  return selectedCartItems.reduce((acc, cur) => {
-    return acc + cur.quantity * cur.product.price;
-  }, 0);
-};
-const getDeliveryCost = (orderCost) => {
-  return orderCost > 1e5 || orderCost === 0 ? 0 : 3e3;
-};
 const Container$2 = css`
-  margin-top: 52px;
+  height: 13%;
 `;
+const Title$1 = css`
+  margin-bottom: 15px;
+
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-bold);
+`;
+const Subtitle = css`
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+  white-space: pre-line;
+  line-height: 10px;
+`;
+function Description({ title, subTitle }) {
+  return /* @__PURE__ */ jsxs("section", { css: Container$2, children: [
+    /* @__PURE__ */ jsx$1("p", { css: Title$1, children: title }),
+    /* @__PURE__ */ jsx$1("p", { css: Subtitle, children: subTitle })
+  ] });
+}
 const InfoText = css`
   margin-bottom: 13px;
 
@@ -15089,16 +15209,15 @@ const Table = css`
     text-align: end;
   }
 
-  & tr:nth-child(3) td {
+  & tr:nth-child(4) td {
     border-top: 1px solid var(--color-gray);
   }
 `;
-function Receipt({ selectedCartItems }) {
-  const orderCost = getOrderCost(selectedCartItems);
-  const deliveryCost = getDeliveryCost(orderCost);
-  return /* @__PURE__ */ jsxs("div", { css: Container$2, children: [
+function Receipt({ orderCost, deliveryCost, discount }) {
+  const totalCost = orderCost + deliveryCost - (discount || 0);
+  return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsxs("div", { css: InfoText, children: [
-      /* @__PURE__ */ jsx$1("img", { src: "public/info.svg", alt: "info 아이콘" }),
+      /* @__PURE__ */ jsx$1("img", { src: Info, alt: "info 아이콘" }),
       /* @__PURE__ */ jsx$1("p", { children: "총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." })
     ] }),
     /* @__PURE__ */ jsx$1("table", { css: Table, children: /* @__PURE__ */ jsxs("tbody", { children: [
@@ -15106,6 +15225,14 @@ function Receipt({ selectedCartItems }) {
         /* @__PURE__ */ jsx$1("td", { children: "주문 금액" }),
         /* @__PURE__ */ jsxs("td", { children: [
           orderCost.toLocaleString(),
+          "원"
+        ] })
+      ] }),
+      discount !== void 0 && /* @__PURE__ */ jsxs("tr", { children: [
+        /* @__PURE__ */ jsx$1("td", { children: "쿠폰 할인 금액" }),
+        /* @__PURE__ */ jsxs("td", { children: [
+          "-",
+          discount.toLocaleString(),
           "원"
         ] })
       ] }),
@@ -15119,16 +15246,14 @@ function Receipt({ selectedCartItems }) {
       /* @__PURE__ */ jsxs("tr", { children: [
         /* @__PURE__ */ jsx$1("td", { children: "총 결제 금액" }),
         /* @__PURE__ */ jsxs("td", { children: [
-          (orderCost + deliveryCost).toLocaleString(),
+          totalCost.toLocaleString(),
           "원"
         ] })
       ] })
     ] }) })
   ] });
 }
-const Button = css`
-  position: sticky;
-  bottom: 0;
+const Button$1 = css`
   width: 100%;
   height: 7vh;
 
@@ -15152,7 +15277,7 @@ function SubmitButton({ label, enabled, onClick }) {
   return /* @__PURE__ */ jsx$1(
     "button",
     {
-      css: [Button, enabled ? enabledButton : disabledButton],
+      css: [Button$1, enabled ? enabledButton : disabledButton],
       type: "button",
       disabled: !enabled,
       onClick,
@@ -15160,83 +15285,6 @@ function SubmitButton({ label, enabled, onClick }) {
     }
   );
 }
-const Container$1 = css`
-  height: 86vh;
-  max-height: 800px;
-  padding: 36px 24px;
-`;
-const Wrap = css`
-  height: 80%;
-`;
-const NoCartItemText = css`
-  height: 100%;
-  min-height: var(--min-height);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: var(--color-gray);
-  font-size: var(--font-size-medium);
-  font-weight: var(--font-weight-light);
-`;
-const useFetch = () => {
-  const [isLoading, setIsLoading] = reactExports.useState(false);
-  const fetchData = reactExports.useCallback(
-    async ({ apiCall, onSuccess, onError }) => {
-      try {
-        setIsLoading(true);
-        onSuccess(await apiCall());
-      } catch (error) {
-        onError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    []
-  );
-  return {
-    fetchData,
-    isLoading
-  };
-};
-const useCheckboxHandler = (cartItems) => {
-  const allCartIds = reactExports.useMemo(
-    () => [...cartItems].map((item) => item.id),
-    [cartItems]
-  );
-  const initialRef = reactExports.useRef(0);
-  const [selectedCartIds, setSelectedCartIds] = reactExports.useState([]);
-  reactExports.useEffect(() => {
-    if (initialRef.current < 3) {
-      setSelectedCartIds(allCartIds);
-      initialRef.current += 1;
-    }
-  }, [allCartIds]);
-  const toggleAllSelect = () => {
-    setSelectedCartIds((prevCartIds) => {
-      return prevCartIds.length === allCartIds.length ? [] : allCartIds;
-    });
-  };
-  const toggleSelect = (cartId) => {
-    setSelectedCartIds(
-      (prevSelected) => prevSelected.includes(cartId) ? prevSelected.filter((id2) => id2 !== cartId) : [...prevSelected, cartId]
-    );
-  };
-  const isAllSelected = () => {
-    return selectedCartIds.length === cartItems.length;
-  };
-  const isSelected = (cartId) => {
-    return selectedCartIds.includes(cartId);
-  };
-  return {
-    toggleAllSelect,
-    toggleSelect,
-    isAllSelected,
-    isSelected,
-    selectedCartIds
-  };
-};
 const getSelectedCartItems = (cartItems, selectedCartIds) => {
   return cartItems.filter((cartItem) => selectedCartIds.includes(cartItem.id));
 };
@@ -15269,15 +15317,19 @@ function Cart() {
   reactExports.useEffect(() => {
     fetchCartItem();
   }, [fetchCartItem]);
+  const subTitle = cartItems.length !== 0 ? `현재 ${cartItems.length}종류의 상품이 담겨있습니다.` : "";
+  const selectedCartItems = getSelectedCartItems(cartItems, selectedCartIds);
+  const orderCost = getOrderCost(selectedCartItems);
+  const deliveryCost = getDeliveryCost(orderCost);
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx$1(Header, { icon: "logo.svg", handleIconClick: () => navigate("/") }),
-    /* @__PURE__ */ jsxs("section", { css: Container$1, children: [
-      /* @__PURE__ */ jsx$1(Description, { cartItemCount: cartItems.length }),
+    /* @__PURE__ */ jsx$1(Header, { icon: CartLogo, handleIconClick: () => navigate("/") }),
+    /* @__PURE__ */ jsxs("section", { css: Container$4, children: [
+      /* @__PURE__ */ jsx$1(Description, { title: "장바구니", subTitle }),
       cartItems.length === 0 ? /* @__PURE__ */ jsx$1("p", { css: NoCartItemText, children: "장바구니에 담은 상품이 없습니다." }) : /* @__PURE__ */ jsxs("div", { css: Wrap, children: [
         /* @__PURE__ */ jsx$1(
           CheckBox,
           {
-            id: "234",
+            id: "allCheckBox",
             label: "전체선택",
             isSelected: isAllSelected(),
             onClick: toggleAllSelect
@@ -15292,15 +15344,7 @@ function Cart() {
             toggleSelect
           }
         ),
-        /* @__PURE__ */ jsx$1(
-          Receipt,
-          {
-            selectedCartItems: getSelectedCartItems(
-              cartItems,
-              selectedCartIds
-            )
-          }
-        )
+        /* @__PURE__ */ jsx$1(Receipt, { deliveryCost, orderCost })
       ] })
     ] }),
     /* @__PURE__ */ jsx$1(
@@ -15311,6 +15355,642 @@ function Cart() {
         onClick: () => navigate("/summary", {
           state: getSelectedCartItems(cartItems, selectedCartIds)
         })
+      }
+    )
+  ] });
+}
+function useSafeLocationState() {
+  const location = useLocation();
+  return location.state;
+}
+const ItemQuantity = css`
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+`;
+const ItemContainer = css`
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+`;
+function OrderItem({ cartItem }) {
+  return /* @__PURE__ */ jsx$1("section", { css: ItemContainer, children: /* @__PURE__ */ jsxs("div", { css: ItemInfo, children: [
+    /* @__PURE__ */ jsx$1(CartItemImage, { image: cartItem.product.imageUrl }),
+    /* @__PURE__ */ jsxs("div", { css: ItemContent, children: [
+      /* @__PURE__ */ jsx$1(
+        CartItemInfo,
+        {
+          name: cartItem.product.name,
+          price: cartItem.product.price
+        }
+      ),
+      /* @__PURE__ */ jsxs("p", { css: ItemQuantity, children: [
+        cartItem.quantity,
+        "개"
+      ] })
+    ] })
+  ] }) });
+}
+function OrderItemList({ cartItems }) {
+  return /* @__PURE__ */ jsx$1("section", { css: Container$5, children: cartItems.map((cartItem) => /* @__PURE__ */ jsx$1(OrderItem, { cartItem }, cartItem.id)) });
+}
+const Button = css`
+  width: 100%;
+  padding: 8px 100px;
+  border: 1px solid rgba(51, 51, 51, 0.25);
+  border-radius: 5px;
+
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-bold);
+  color: rgba(51, 51, 51, 0.75);
+`;
+function CouponButton({ onClick }) {
+  return /* @__PURE__ */ jsx$1("button", { css: Button, onClick, children: "쿠폰 적용" });
+}
+const couponContext$1 = reactExports.createContext({
+  selectedCoupon: [],
+  addCoupon: () => {
+  },
+  removeCoupon: () => {
+  },
+  isSelected: () => false,
+  changeSelectedCoupon: () => {
+  }
+});
+function CouponManagerProvider({ children }) {
+  const [selectedCoupon, setSelectedCoupon] = reactExports.useState([]);
+  function addCoupon(coupon) {
+    setSelectedCoupon((prev2) => {
+      prev2.push(coupon);
+      return [...prev2];
+    });
+  }
+  const removeCoupon = reactExports.useCallback((coupon) => {
+    setSelectedCoupon((prev2) => {
+      const index2 = prev2.indexOf(coupon);
+      if (index2 > -1) {
+        prev2.splice(index2, 1);
+      }
+      return [...prev2];
+    });
+  }, []);
+  const changeSelectedCoupon = reactExports.useCallback((coupons) => {
+    setSelectedCoupon(coupons);
+  }, []);
+  function isSelected(coupon) {
+    return Boolean(selectedCoupon.find((item) => item.code === coupon.code));
+  }
+  return /* @__PURE__ */ jsx$1(
+    couponContext$1.Provider,
+    {
+      value: {
+        selectedCoupon,
+        addCoupon,
+        removeCoupon,
+        isSelected,
+        changeSelectedCoupon
+      },
+      children
+    }
+  );
+}
+function useCouponManagerProvider() {
+  const context = reactExports.useContext(couponContext$1);
+  if (!context) {
+    throw new Error("컨텍스트는 Provider 내부에서만 사용해야 합니다.");
+  }
+  return context;
+}
+function useModalClose({ closeModal }) {
+  function onClickOverlay(e2) {
+    if (e2.target.id === "modal-overlay")
+      closeModal();
+  }
+  const escapeModal = reactExports.useCallback(
+    (e2) => {
+      if (e2.key === "Escape") {
+        closeModal();
+      }
+    },
+    [closeModal]
+  );
+  reactExports.useEffect(() => {
+    window.addEventListener("keydown", escapeModal);
+    return () => {
+      window.removeEventListener("keydown", escapeModal);
+    };
+  }, [escapeModal]);
+  return { onClickOverlay };
+}
+const getCoupons = async () => {
+  const data = await apiClient({
+    method: "GET",
+    URI: `/coupons`
+  });
+  return data;
+};
+const couponContext = reactExports.createContext({
+  coupons: []
+});
+function CouponProvider({ children }) {
+  const [coupons, setCoupon] = reactExports.useState([]);
+  reactExports.useEffect(() => {
+    async function fetchCoupons() {
+      const data = await getCoupons();
+      setCoupon(data);
+    }
+    fetchCoupons();
+  }, []);
+  return /* @__PURE__ */ jsx$1(couponContext.Provider, { value: { coupons }, children });
+}
+function useCouponContext() {
+  const context = reactExports.useContext(couponContext);
+  if (!context) {
+    throw new Error("컨텍스트는 CouponProvider 내부에서 사용해야 합니다.");
+  }
+  return context;
+}
+const Container$1 = css`
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 24px;
+`;
+const CouponText = css`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+`;
+function isFixedCoupon(coupon) {
+  return coupon.discountType === "fixed";
+}
+function isBuyXGetYCoupon(coupon) {
+  return coupon.discountType === "buyXgetY";
+}
+function isFreeShippingCoupon(coupon) {
+  return coupon.discountType === "freeShipping";
+}
+function isPercentageCoupon(coupon) {
+  return coupon.discountType === "percentage";
+}
+function isExpired({ coupon }) {
+  return !isAvailableDate(coupon.expirationDate);
+}
+function isOverLimit({ coupon, selectedCoupon }) {
+  return selectedCoupon.length >= 2 && !selectedCoupon.some((c2) => c2.code === coupon.code);
+}
+function isOutOfTime({ coupon }) {
+  return isPercentageCoupon(coupon) && !isAvailableTime(coupon.availableTime.start, coupon.availableTime.end);
+}
+function isOverQuantity({ coupon, cartItems }) {
+  if (!isBuyXGetYCoupon(coupon))
+    return false;
+  return cartItems.filter(
+    (item) => item.quantity >= coupon.buyQuantity + coupon.getQuantity
+  ).length === 0;
+}
+function isBelowMinimumAmount({ coupon, orderCost }) {
+  return (isFixedCoupon(coupon) || isFreeShippingCoupon(coupon)) && orderCost < coupon.minimumAmount;
+}
+function isZeroDeliveryCost({
+  coupon,
+  deliveryCost
+}) {
+  return isFreeShippingCoupon(coupon) && deliveryCost === 0;
+}
+function getCouponValidators() {
+  return [
+    isExpired,
+    isOverLimit,
+    isOutOfTime,
+    isOverQuantity,
+    isBelowMinimumAmount,
+    isZeroDeliveryCost
+  ];
+}
+function isCouponDisabled(params) {
+  return getCouponValidators().some((validator) => validator(params));
+}
+function isAvailableDate(date) {
+  const today = /* @__PURE__ */ new Date();
+  const couponDate = new Date(date);
+  return couponDate > today;
+}
+function isAvailableTime(start, end) {
+  const now = /* @__PURE__ */ new Date();
+  const startTime = /* @__PURE__ */ new Date(now.toDateString() + " " + start);
+  const endTime = /* @__PURE__ */ new Date(now.toDateString() + " " + end);
+  return now >= startTime && now <= endTime;
+}
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}년 ${month}월 ${day}일`;
+}
+function formatTimeRange(start, end) {
+  return `${formatTime(start)}부터 ${formatTime(end)}까지`;
+}
+function formatTime(time) {
+  const [hourStr] = time.split(":");
+  const hour = parseInt(hourStr, 10);
+  const period = hour < 12 ? "오전" : "오후";
+  const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+  return `${period} ${displayHour}시`;
+}
+function useRemoveDisabledFreeShippingCoupon({
+  disabled,
+  couponData
+}) {
+  const { removeCoupon } = useCouponManagerProvider();
+  reactExports.useEffect(() => {
+    if (disabled && isFreeShippingCoupon(couponData)) {
+      removeCoupon(couponData);
+    }
+  }, [disabled, removeCoupon, couponData]);
+}
+function CouponItem({
+  type,
+  couponData,
+  orderCost,
+  cartItems,
+  deliveryCost
+}) {
+  const { isSelected, addCoupon, removeCoupon, selectedCoupon } = useCouponManagerProvider();
+  const disabled = isCouponDisabled({
+    type,
+    coupon: couponData,
+    orderCost,
+    cartItems,
+    selectedCoupon,
+    deliveryCost
+  });
+  const checked = isSelected(couponData);
+  useRemoveDisabledFreeShippingCoupon({
+    disabled,
+    couponData
+  });
+  return /* @__PURE__ */ jsxs("div", { css: [Container$1, disabled && { opacity: 0.3 }], children: [
+    /* @__PURE__ */ jsx$1(
+      CheckBox,
+      {
+        disabled,
+        label: couponData.description,
+        id: String(couponData.id),
+        isSelected: checked,
+        onClick: () => {
+          if (checked) {
+            removeCoupon(couponData);
+          } else {
+            addCoupon(couponData);
+          }
+        },
+        textSize: "big"
+      }
+    ),
+    /* @__PURE__ */ jsx$1("div", { css: CouponText, children: getCouponText({ couponData }) })
+  ] });
+}
+function getCouponText({ couponData }) {
+  const expirationDate = formatDate(couponData.expirationDate);
+  if (isFixedCoupon(couponData)) {
+    return /* @__PURE__ */ jsxs(Fragment, { children: [
+      /* @__PURE__ */ jsxs("p", { children: [
+        "만료일: ",
+        expirationDate
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "최소 금액: ",
+        couponData.minimumAmount.toLocaleString(),
+        "원"
+      ] })
+    ] });
+  }
+  if (isBuyXGetYCoupon(couponData)) {
+    return /* @__PURE__ */ jsx$1(Fragment, { children: /* @__PURE__ */ jsxs("p", { children: [
+      "만료일: ",
+      expirationDate
+    ] }) });
+  }
+  if (isFreeShippingCoupon(couponData)) {
+    return /* @__PURE__ */ jsxs(Fragment, { children: [
+      /* @__PURE__ */ jsxs("p", { children: [
+        "만료일: ",
+        expirationDate
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "최소 금액: ",
+        couponData.minimumAmount.toLocaleString(),
+        "원"
+      ] })
+    ] });
+  }
+  if (isPercentageCoupon(couponData)) {
+    return /* @__PURE__ */ jsxs(Fragment, { children: [
+      /* @__PURE__ */ jsxs("p", { children: [
+        "만료일: ",
+        expirationDate
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "사용 가능 시간:",
+        formatTimeRange(
+          couponData.availableTime.start,
+          couponData.availableTime.end
+        )
+      ] })
+    ] });
+  }
+}
+function CouponList({
+  orderCost,
+  cartItems,
+  deliveryCost
+}) {
+  const { coupons } = useCouponContext();
+  return /* @__PURE__ */ jsx$1("div", { children: coupons.map((coupon) => /* @__PURE__ */ jsx$1(
+    CouponItem,
+    {
+      type: coupon.discountType,
+      couponData: coupon,
+      cartItems,
+      orderCost,
+      deliveryCost
+    },
+    coupon.id
+  )) });
+}
+const ModalOverlay = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+`;
+const ModalContainer = css`
+  position: fixed;
+  width: 382px;
+  height: auto;
+  max-height: 70vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  overflow-y: auto;
+  padding: 24px 16px;
+`;
+const ModalTitle = css`
+  display: flex;
+  justify-content: space-between;
+
+  height: 22px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+`;
+const XButton = css`
+  border: none;
+  font-size: 20px;
+`;
+const CloseButton = css`
+  width: 100%;
+  height: 44px;
+  color: white;
+  background-color: rgba(51, 51, 51, 1);
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 32px;
+`;
+function CouponModal({
+  onClose,
+  orderCost,
+  cartItems,
+  discount,
+  deliveryCost
+}) {
+  const { onClickOverlay } = useModalClose({ closeModal: onClose });
+  const { selectedCoupon, changeSelectedCoupon } = useCouponManagerProvider();
+  const copyInitSelectedCoupon = reactExports.useRef(selectedCoupon);
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx$1(
+      "div",
+      {
+        role: "button",
+        tabIndex: 0,
+        id: "modal-overlay",
+        css: ModalOverlay,
+        onClick: (e2) => {
+          changeSelectedCoupon(copyInitSelectedCoupon.current);
+          onClickOverlay(e2);
+        },
+        onKeyDown: (e2) => {
+          if (e2.key === "Enter" || e2.key === " ")
+            ;
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { css: ModalContainer, children: [
+      /* @__PURE__ */ jsxs("div", { css: ModalTitle, children: [
+        /* @__PURE__ */ jsx$1("p", { children: "쿠폰을 선택해 주세요" }),
+        /* @__PURE__ */ jsx$1(
+          "button",
+          {
+            css: XButton,
+            onClick: () => {
+              changeSelectedCoupon(copyInitSelectedCoupon.current);
+              onClose();
+            },
+            children: "x"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx$1(
+        CouponList,
+        {
+          orderCost,
+          cartItems,
+          deliveryCost
+        }
+      ),
+      /* @__PURE__ */ jsx$1("button", { css: CloseButton, onClick: onClose, children: `총 ${discount.toLocaleString()}원 할인 쿠폰 사용하기` })
+    ] })
+  ] });
+}
+function useModal() {
+  const [isOpen, setIsOpen] = reactExports.useState(false);
+  function modalOpen() {
+    setIsOpen(true);
+  }
+  function modalClose() {
+    setIsOpen(false);
+  }
+  return { isOpen, modalClose, modalOpen };
+}
+function useResetCouponOnUnmount() {
+  const { changeSelectedCoupon } = useCouponManagerProvider();
+  reactExports.useEffect(() => {
+    return () => {
+      changeSelectedCoupon([]);
+    };
+  }, [changeSelectedCoupon]);
+}
+function calculateDiscountAmount({
+  price,
+  cartItems,
+  deliveryCost,
+  selectedCoupon
+}) {
+  if (selectedCoupon.length === 0)
+    return 0;
+  if (selectedCoupon.length === 1) {
+    return getDiscountAmount(selectedCoupon[0], price, cartItems, deliveryCost);
+  }
+  const discountAfterFirst = applyCouponsInOrder(
+    selectedCoupon,
+    price,
+    cartItems,
+    deliveryCost
+  );
+  const discountBeforeFirst = applyCouponsInOrder(
+    [...selectedCoupon].reverse(),
+    price,
+    cartItems,
+    deliveryCost
+  );
+  return Math.max(discountAfterFirst, discountBeforeFirst);
+}
+function applyCouponsInOrder(coupons, initialPrice, cartItems, deliveryCost) {
+  return coupons.reduce((acc, coupon) => {
+    const discounted = getDiscountAmount(
+      coupon,
+      initialPrice - acc,
+      cartItems,
+      deliveryCost
+    );
+    return acc + discounted;
+  }, 0);
+}
+function getDiscountAmount(coupon, price, cartItems, deliveryCost) {
+  switch (coupon.discountType) {
+    case "fixed":
+      return calculateFixedDiscount(coupon);
+    case "percentage":
+      return calculatePercentageDiscount(coupon, price);
+    case "freeShipping":
+      return calculateFreeDeliveryCostDiscount(deliveryCost);
+    case "buyXgetY":
+      return calculateBuyXGetYDiscount(coupon, cartItems);
+    default:
+      return 0;
+  }
+}
+function calculateFixedDiscount(coupon) {
+  return Math.max(0, coupon.discount);
+}
+function calculatePercentageDiscount(coupon, price) {
+  return Math.floor(price * (coupon.discount / 100));
+}
+function calculateFreeDeliveryCostDiscount(deliveryCost) {
+  return Math.max(0, deliveryCost);
+}
+function calculateBuyXGetYDiscount(coupon, cartItems) {
+  const { buyQuantity, getQuantity } = coupon;
+  const eligibleItems = cartItems.filter(
+    (item) => item.quantity >= buyQuantity + getQuantity
+  );
+  if (eligibleItems.length === 0)
+    return 0;
+  const sorted = eligibleItems.sort((a, b2) => {
+    if (b2.product.price !== a.product.price) {
+      return b2.product.price - a.product.price;
+    }
+    return b2.quantity - a.quantity;
+  });
+  const topItem = sorted[0];
+  const setCount = Math.floor(topItem.quantity / (buyQuantity + getQuantity));
+  return setCount * topItem.product.price;
+}
+function getAllQuantity(cartItems) {
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
+}
+function OrderSummary() {
+  useResetCouponOnUnmount();
+  const [isJejuOrIslandSelected, setIsJejuOrIslandSelected] = reactExports.useState(false);
+  const { isOpen, modalClose, modalOpen } = useModal();
+  const navigate = useNavigate();
+  const { selectedCoupon } = useCouponManagerProvider();
+  const cartItems = useSafeLocationState();
+  const orderCost = getOrderCost(cartItems);
+  const deliveryCost = getDeliveryCost(orderCost) + (isJejuOrIslandSelected ? 3e3 : 0);
+  const discountAmount = calculateDiscountAmount({
+    price: orderCost,
+    cartItems,
+    deliveryCost,
+    selectedCoupon
+  });
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx$1(Header, { icon: BackIcon, handleIconClick: () => navigate(-1) }),
+    /* @__PURE__ */ jsxs("section", { css: Container$4, children: [
+      /* @__PURE__ */ jsx$1(
+        Description,
+        {
+          title: "주문 확인",
+          subTitle: `총 ${cartItems.length}종류의 상품 ${getAllQuantity(
+            cartItems
+          )}개를 주문합니다.
+
+최종 결제 금액을 확인해 주세요.
+          `
+        }
+      ),
+      /* @__PURE__ */ jsx$1(OrderItemList, { cartItems }),
+      /* @__PURE__ */ jsx$1(CouponButton, { onClick: modalOpen }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx$1("p", { children: "배송 정보" }),
+        /* @__PURE__ */ jsx$1(
+          CheckBox,
+          {
+            id: "delivery",
+            isSelected: isJejuOrIslandSelected,
+            onClick: () => setIsJejuOrIslandSelected((prev2) => !prev2),
+            label: "제주도 및 도서 산간 지역"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsx$1(
+        Receipt,
+        {
+          orderCost,
+          deliveryCost,
+          discount: discountAmount
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx$1(
+      SubmitButton,
+      {
+        enabled: true,
+        label: "결제하기",
+        onClick: () => navigate("/orderComplete", {
+          state: {
+            cartItems,
+            totalCost: orderCost + deliveryCost - discountAmount
+          }
+        })
+      }
+    ),
+    isOpen && /* @__PURE__ */ jsx$1(
+      CouponModal,
+      {
+        onClose: modalClose,
+        orderCost,
+        cartItems,
+        discount: discountAmount,
+        deliveryCost
       }
     )
   ] });
@@ -15344,38 +16024,38 @@ const TotalCost = css`
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-bold);
 `;
-function OrderSummary() {
+function OrderComplete() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { state: cartItems } = location;
-  const getAllQuantity = (cartItems2) => {
-    return cartItems2.reduce((total, item) => total + item.quantity, 0);
-  };
-  const orderCost = getOrderCost(cartItems);
-  const totalCost = orderCost + getDeliveryCost(orderCost);
+  const state = useSafeLocationState();
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx$1(Header, { icon: "backIcon.svg", handleIconClick: () => navigate(-1) }),
+    /* @__PURE__ */ jsx$1(Header, {}),
     /* @__PURE__ */ jsxs("section", { css: Container, children: [
       /* @__PURE__ */ jsx$1("h2", { css: Title, children: "주문 확인" }),
-      /* @__PURE__ */ jsx$1("p", { css: Summary, children: `총 ${cartItems.length}종류의 상품 ${getAllQuantity(
-        cartItems
+      /* @__PURE__ */ jsx$1("p", { css: Summary, children: `총 ${state.cartItems.length}종류의 상품 ${getAllQuantity(
+        state.cartItems
       )}개를 주문합니다.` }),
       /* @__PURE__ */ jsx$1("p", { css: Summary, children: " 최종 결제 금액을 확인해 주세요." }),
       /* @__PURE__ */ jsx$1("p", { css: TotalCostLabel, children: "총 결제 금액" }),
       /* @__PURE__ */ jsxs("p", { css: TotalCost, children: [
-        totalCost.toLocaleString(),
+        state.totalCost.toLocaleString(),
         "원"
       ] })
     ] }),
-    /* @__PURE__ */ jsx$1(SubmitButton, { enabled: false, label: "결제하기" })
+    /* @__PURE__ */ jsx$1(
+      SubmitButton,
+      {
+        enabled: true,
+        label: "장바구니로 돌아가기",
+        onClick: () => navigate("/")
+      }
+    )
   ] });
 }
 const basename = "/react-shopping-cart/";
 const router = createBrowserRouter(
   [
     {
-      path: "/",
-      element: /* @__PURE__ */ jsx$1(App, {}),
+      element: /* @__PURE__ */ jsx$1(Outlet, {}),
       children: [
         {
           path: "/",
@@ -15384,15 +16064,18 @@ const router = createBrowserRouter(
         {
           path: "/summary",
           element: /* @__PURE__ */ jsx$1(OrderSummary, {})
+        },
+        {
+          path: "/orderComplete",
+          element: /* @__PURE__ */ jsx$1(OrderComplete, {})
         }
       ]
     }
   ],
   {
     basename
-    // ✅ 이 부분 추가
   }
 );
 client.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsx$1(RouterProvider2, { router })
+  /* @__PURE__ */ jsx$1(CouponManagerProvider, { children: /* @__PURE__ */ jsx$1(CouponProvider, { children: /* @__PURE__ */ jsx$1(RouterProvider2, { router }) }) })
 );
