@@ -15351,7 +15351,7 @@ function Cart() {
       SubmitButton,
       {
         label: "주문 확인",
-        enabled: selectedCartIds.length !== 0,
+        enabled: true,
         onClick: () => navigate("/summary", {
           state: getSelectedCartItems(cartItems, selectedCartIds)
         })
